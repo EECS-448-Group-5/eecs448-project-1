@@ -6,12 +6,19 @@
 
 class MediumAI : public Opponent {
     public:
-        void makeMove(Board* enemyBoard);
-        void placeShips(int numShips, Board* homeBoard);
+        MediumAI();
+        void makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
+        void placeShips(int numShips, Ship** shipList, Board* homeBoard);
 
     private:
-        std::string lastHit;
+        bool makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
+        bool isValidGuess(char col, int row, Board* guessBoard);
+
+        int lastHitRow;
+        char lastHitCol;
         char shipDirection;
+        char guessDirection;
+        int guessDistance;
 };
 
 #endif

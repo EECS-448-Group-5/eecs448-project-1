@@ -6,8 +6,8 @@
 class Opponent {
     public:
 
-    virtual void makeMove(Board* enemyBoard) = 0;
-    virtual void placeShips(int numShips, Board* homeBoard) = 0;
+    virtual void makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard) = 0;
+    virtual void placeShips(int numShips, Ship** shipList, Board* homeBoard) = 0;
 };
 
 #endif
