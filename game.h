@@ -67,6 +67,15 @@ class Game
     bool player1Won();
  
 	~Game();
+
+    //new code added by team 5
+    
+    //this is a normal shot fired by a ship, the player will have unlimited number of normal shots to use during a game.
+    void normalShot();
+
+    //this is a shot that will hit a 3x3 square with the center being the coordinates given by the player, each player will only have two of these shots to use during a game. 
+    void nukeShot();
+
  
 };
 #endif
