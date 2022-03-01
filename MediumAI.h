@@ -12,7 +12,6 @@ class MediumAI : public Opponent {
 
     private:
         bool makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
-        bool isValidGuess(char col, int row, Board* guessBoard);
 
         int lastHitRow;
         char lastHitCol;

@@ -30,13 +30,6 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
     return false;
 }
 
-bool MediumAI::isValidGuess(char col, int row, Board* guessBoard)
-{
-    return col >= 97 && col <= 106 && 
-           row >= 1 && row <= 10 && 
-           guessBoard->isValidSpace(col - 97, row);
-}
-
 void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
     if(lastHitRow == 0)

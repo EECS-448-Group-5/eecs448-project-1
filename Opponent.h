@@ -22,7 +22,8 @@ class Opponent {
 
                 //ensure each space of the ship is valid.
                 for(int j=0; j<i; j++){
-                    if(!homeBoard->isValidSpace(base[0] + j*isVert, base[1] + j*(1-isVert))){
+                    //check if the j-th tile of the ship would be invalid
+                    if(!isValidGuess(base[0] + j*isVert, base[1] + j*(1-isVert), homeBoard)){
                         invalid = true;
                         break;
                     }
@@ -35,12 +36,18 @@ class Opponent {
                 }
             }
 
-            
             shipList[i-1] = nextShip;
+            homeBoard->placeShip(nextShip);
         }
-        
-
     };
+
+    protected:
+
+    bool isValidGuess(char col, int row, Board* guessBoard){
+        return col >= 97 && col <= 106 && 
+           row >= 1 && row <= 10 && 
+           guessBoard->isValidSpace(col - 97, row);
+    }
 };
 
 #endif
