@@ -1,5 +1,5 @@
-Battleship: MediumAI.o ship.o main.o game.o board.o Executive.o
-	g++ -std=c++11 -g -Wall MediumAI.o ship.o main.o game.o board.o Executive.o -o Battleship
+Battleship: HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o
+	g++ -std=c++11 -g -Wall HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o -o Battleship
 main.o: main.cpp Executive.h
 	g++ -std=c++11 -g -Wall -c main.cpp
 Executive.o: Executive.cpp Executive.h
@@ -12,6 +12,10 @@ game.o: game.cpp  game.h
 	g++ -std=c++11 -g -Wall -c game.cpp
 MediumAI.o: MediumAI.cpp MediumAI.h
 	g++ -std=c++11 -g -Wall -c MediumAI.cpp
+EasyAI.o: EasyAI.cpp EasyAI.h
+	g++ -std=c++11 -g -Wall -c EasyAI.cpp
+HardAI.o: HardAI.cpp HardAI.h
+	g++ -std=c++11 -g -Wall -c HardAI.cpp
 clean:
 	rm *.o Battleship
 winclean:
