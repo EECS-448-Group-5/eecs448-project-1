@@ -12,7 +12,11 @@ MediumAI::MediumAI()
 bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
     for(int i=0; i<numShips; i++){
-        enemyShips[i]->hit(col, row);
+        try{
+            enemyShips[i]->hit(col, row);
+        }catch(std::exception& e){
+
+        }
     }
 
 
