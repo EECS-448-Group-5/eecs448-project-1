@@ -21,17 +21,14 @@ void HardAI::makeRandomGuess(Board* enemyBoard, Ship** enemyShips, int numShips,
 void HardAI::makeTargetedGuess(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard) {
     int col = 0;
     int row = 0;
-    do {
-        for(int i=0; i<10; i++) {
-            for (int j=0; j<10; j++) {
-                if(!enemyBoard->isValidSpace(col, row) && guessBoard->isValidSpace(col, row)) {
-                    row = i;
-                    col = j;
-                }
+    for(int i=0; i<10; i++) {
+        for (int j=0; j<10; j++) {
+            if(!enemyBoard->isValidSpace(j, i) && guessBoard->isValidSpace(j, i)) {
+                row = i;
+                col = j;
             }
         }
     }
-    while(enemyBoard->isValidSpace(col, row));
     
     col = col + 97;
     char col_char = col;
