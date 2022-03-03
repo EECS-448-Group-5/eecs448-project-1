@@ -117,8 +117,12 @@ void Game::shipPlacement()
 		}
 	}
 }
+
+// need to modify this fire method so that the player can choose the shot selection first. 
 void Game::fire(std::string playerName)
 {
+	int shotSelection=0;
+	
     //checks user input
     char col = 'A';
     int newCol =0;
