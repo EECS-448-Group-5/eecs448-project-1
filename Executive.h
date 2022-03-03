@@ -10,18 +10,23 @@
  #ifndef EXECUTIVE_H
  #define EXECUTIVE_H
 
- class Executive
- {
-	 private:
-	 /*
-   commenting out for now. unused
-   bool gameOver;
-	 int boardSize;
-	 int shipNumber;
-	 */
-	 public:
-	 Executive();
-	 void play();
-	 ~Executive();
- };
- #endif
+#include "Opponent.h"
+#include <string>
+
+class Executive
+{
+	private:
+	/*
+	commenting out for now. unused
+	bool gameOver;
+	int boardSize;
+	int shipNumber;
+	*/
+
+	public:
+		Executive();
+	 	void play();
+		std::string selectPlayer(std::string player);
+	 	~Executive();
+};
+#endif
