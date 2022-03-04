@@ -31,8 +31,8 @@ class Opponent {
                 //ensure each space of the ship is valid.
                 for(int j=0; j<i; j++){
                     //check if the j-th tile of the ship would be invalid
-                    std::cout << "tile: "<< (char)(base[0] + j*isVert) << ", " << base[1] + j*(1-isVert) <<"\n";
-                    if(!isValidGuess(base[0] + j*isVert, base[1] + j*(1-isVert), homeBoard)){
+                    std::cout << "tile: "<< (char)(base[0] + j*(1-isVert)) << ", " << base[1] + j*isVert <<"\n";
+                    if(!isValidGuess(base[0] + j*(1-isVert), base[1] + j*isVert, homeBoard)){
                         invalid = true;
                         break;
                     }
