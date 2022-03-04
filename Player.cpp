@@ -203,10 +203,25 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
 }
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
 }
-void Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
-   
+bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+      for(int i=0; i<numShips; i++){
+        try{
+            enemyShips[i]->hit(col, row);
+        }catch(std::exception& e){
+
+        }
+    }
+
+    if(!enemyBoard->isValidSpace(col - 97, row))
+    {
+            guessBoard->updateBoard(col, row, '*');
+            return true;
+    }
+
+    guessBoard->updateBoard(col, row, 'M');
+    return false;
 }
 void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
-   
+    
 }
 
