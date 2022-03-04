@@ -109,7 +109,30 @@ bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips,
     guessBoard->updateBoard(col, row, 'M');
     return false;
 }
-void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard){
+    srand(time(NULL));
+    int row = 0;
+    int col = 0;
     
+    do {
+        col = rand() % 10; //to make random guess, obtain two random numbers between 0 and 9 (inputs to board array)
+        row = rand() % 10;
+    }
+    while(!guessBoard->isValidSpace(col, row)); //while conditions controls for repeat guesses
+    
+    col = col + 97;
+    char col_char = col; //transform the column number into its ASCII equivalent so other functions recognize it
+    col = col - 97;
+
+    for(int i=0; i<numShips; i++) { //informs the ship arrays whether they'll be hit or not
+        enemyShips[i]->hit(col_char, row);
+    }
+
+    if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
+        guessBoard->updateBoard(col_char, row, '*');
+    }
+    else {
+        guessBoard->updateBoard(col_char, row, 'M');
+    }
 }
 
