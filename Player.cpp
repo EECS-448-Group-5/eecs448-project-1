@@ -12,12 +12,11 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     int consecutiveShotCount = 0;
     int randomShotCount = 0;
     std::string shotType;
-	
-    //checks user input
-    char col = 'A';
+	char col = 'A';
     int newCol = 0;
     int row = 0;
     int missCount = 0;
+    bool result = false;
 
     std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << " | consecutive: " << consecutiveShotCount << " | random: " << randomShotCount << "): ";
     std::cin >> shotType;
@@ -38,9 +37,6 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
 	std::cout << "===============================================\n";
 
-    
-
-    /*
     do
     {
 		std::cin.clear();	//Prompts for input if user gives a non character
@@ -56,7 +52,9 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
       	    std::cout << "Invalid input. Please enter letters a-j.";
     	}
     }
-		while (result == false);  //only accept user input a-j
+	while (result == false);  //only accept user input a-j
+
+/*
 
     do
     {
@@ -237,7 +235,7 @@ bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips,
     guessBoard->updateBoard(col, row, 'M');
     return false;
 }
-void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard){
     
 }
 
