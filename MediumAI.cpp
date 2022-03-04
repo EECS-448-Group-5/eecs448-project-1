@@ -20,7 +20,7 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
     }
 
 
-    if(!enemyBoard->isValidSpace(col - 97, row))
+    if(!enemyBoard->isValidSpace(col - 97, row-1))
     {
             guessBoard->updateBoard(col, row, '*');
             return true;
@@ -36,7 +36,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
     guessBoard->printBoard();
     if(lastHitRow == 0)
     {//don't know where a ship is
-        int guess[2] = {97,0};//getRandomGuess() TODO impl
+        int* guess = getRandomGuess(guessBoard);
 
         //if the random guess is a hit, make a note of where the hit was.
         if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
@@ -45,6 +45,8 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             lastHitCol = guess[0];
             guessDirection = 'u';
         }
+
+        delete[] guess;
     }
     else
     {//knows where a ship is
