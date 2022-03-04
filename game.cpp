@@ -39,7 +39,10 @@ void Game::shipPlacement(Opponent* player1, Opponent* player2)
 		std::cout << "===============================================\n";
 	}
 
-	player1_ships = new Ship*[numShips];		//Ship arrays for player 1 and player 2
+	std::cout << "Player 1 placing ships...\n";
+	player1_ships = new Ship*[numShips];
+
+	std::cout << "Player 2 placing ships...\n";
 	player2_ships = new Ship*[numShips];
 
 
@@ -47,25 +50,30 @@ void Game::shipPlacement(Opponent* player1, Opponent* player2)
 	player2->placeShips(numShips, player2_ships, player2_Board);
 }
 
-void Game::fire(Opponent* player)
+void Game::fire(Opponent* player, int playerNum)
 {
-	std::cout << player << " is firing.\n";
-}
-
-/*
-// need to modify this fire method so that the player can choose the shot selection first. 
-void Game::fire(std::string playerName)
-{
-	int shotSelection=0;
+	if (playerNum == 1)
+	{
+		player->makeMove(player1_eBoard, player2_ships, numShips, player1_eBoard);
+	}
+	else
+	{
+		player->makeMove(player2_eBoard, player1_ships, numShips, player2_eBoard);
+	}
+	
+	/*
+	int shotSelection = 0;
 	
     //checks user input
     char col = 'A';
-    int newCol =0;
+    int newCol = 0;
     int row = 0;
-    int missCount =0;
-		std::cout << "===============================================\n";
+    int missCount = 0;
+
+	std::cout << "===============================================\n";
     std::cout << "Player: " << playerName << "\nEnter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
-		std::cout << "===============================================\n";
+	std::cout << "===============================================\n";
+
     do
     {
 		std::cin.clear();	//Prompts for input if user gives a non character
@@ -161,8 +169,8 @@ void Game::fire(std::string playerName)
 	    player2_eBoard.printBoard();
 			std::cout << "===============================================\n";
   	}
+	  */
 }
-*/
 
 bool Game::player1Won()
 {

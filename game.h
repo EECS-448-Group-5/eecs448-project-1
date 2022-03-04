@@ -32,7 +32,7 @@ class Game
 	int numShips = 0;
     Game();
 	bool player1WonCheck;
-     
+    
 	bool result = true;
 	    /**
        * @pre : None
@@ -41,7 +41,7 @@ class Game
        * @throw : none
        * @retun : N/A
     **/
-	void fire(Opponent* player);
+	void fire(Opponent* player, int playerNum);
 	/**
        * @pre : None
        * @post :  check for ship index and see if status is all sunk, if true then end game else continue

@@ -37,15 +37,13 @@ void Executive::play()
 
 	gameFunction.shipPlacement(player1, player2);
 	
-
-
 	//starts game by looping until game over is true
 	do
 	{
 		//asks player one for a move
-		gameFunction.fire(player1);
+		gameFunction.fire(player1, 1);
 		//then asks player two for a move
-		gameFunction.fire(player2);
+		gameFunction.fire(player2, 2);
 	} while (gameFunction.gameEndCheck() == false);   //checks if game is over and ends the loop if true
 
 	if (gameFunction.player1Won()==true)
