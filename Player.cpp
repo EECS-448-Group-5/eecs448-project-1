@@ -21,27 +21,27 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << " | consecutive: " << consecutiveShotCount << " | random: " << randomShotCount << "): ";
     std::cin >> shotType;
 
-    while ( std::cin.fail() || ( shotType != "bomb" && shotType != "b" && shotType != "consecutive" && shotType != "c" && shotType != "random" && shotType != "r") )
+    while ( std::cin.fail() || ( shotType != "normal" && shotType != "n" && shotType != "bomb" && shotType != "b" && shotType != "consecutive" && shotType != "c" && shotType != "random" && shotType != "r") )
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		std::cout << "\n";
-		std::cout << "Invalid selection. Please input bomb, consecutive, or random: ";
+		std::cout << "Invalid selection. Please input normal, bomb, consecutive, or random: ";
 		std::cin >> shotType;
 	}
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	std::cout << "===============================================\n";
-    std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
+    std::cout << "Enter Coordinates to Attack\n";
 	std::cout << "===============================================\n";
 
     do
     {
 		std::cin.clear();	//Prompts for input if user gives a non character
 		std::cin.ignore();
-    	std::cout << "Column: ";
+    	std::cout << "Column (letters a-j): ";
     	std::cin >> col;
     	col = tolower(col); //change user input char to always lowercase
     	newCol = col; //set char col to int newCol 
@@ -54,13 +54,11 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     }
 	while (result == false);  //only accept user input a-j
 
-/*
-
     do
     {
 		std::cin.clear();	//Prompts for input if user gives a non integer
 		std::cin.ignore();
-	    std::cout << "Row: ";
+	    std::cout << "Row (numbers 1-10): ";
 	    std::cin >> row;
 	    result =(row<=10 && row >=1); //check user input to see if its between 1-10
 	    if(result == false)
@@ -68,9 +66,11 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 	          std::cout << "Invalid input. Please enter numbers 1-10.";
 	    }
     }
-		while (result == false); //only accept user input 1-10
+	while (result == false); //only accept user input 1-10
 
-		if(playerName=="Player 1")
+
+/*
+	if(playerName=="Player 1")
     {
     	missCount=0;
 			for(int i=0;i<numShips;i++)
