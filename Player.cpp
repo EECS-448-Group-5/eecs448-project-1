@@ -113,6 +113,7 @@ void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
     srand(time(NULL));
     int row = 0;
     int col = 0;
+    
     do {
         col = rand() % 10; //to make random guess, obtain two random numbers between 0 and 9 (inputs to board array)
         row = rand() % 10;
