@@ -12,6 +12,9 @@
 #include "ship.h"
 #include "game.h"
 #include "Player.h"
+#include "EasyAI.h"
+#include "MediumAI.h"
+#include "HardAI.h"
 #include <stdexcept>
 #include <iostream>
 #include <string>
@@ -29,29 +32,10 @@ void Executive::play()
 	std::cout << "Welcome to Battleship!\n";
 	std::cout << "===============================================\n";
 
-	std::string player1 = selectPlayer("Player 1");
-	std::string player2 = selectPlayer("Player 2");
+	Opponent* player1 = selectPlayer("Player 1");
+	Opponent* player2 = selectPlayer("Player 2");
 
-	if (player1 == "human")
-	{
-		Player p1Player;
-		p1Player.placeShips();
-	}
-	else if (player1 == "easy")
-	{
-		std::cout << "\n";
-		std::cout << "Player 1: easy\n";
-	}
-	else if (player1 == "medium")
-	{
-		std::cout << "\n";
-		std::cout << "Player 1: medium\n";
-	}
-	else if (player1 == "hard")
-	{
-		std::cout << "\n";
-		std::cout << "Player 1: hard\n";
-	}
+	
 /*
 	gameFunction.shipPlacement();
 	
@@ -80,10 +64,11 @@ void Executive::play()
 	}
 }
 
-std::string Executive::selectPlayer(std::string player)
+Opponent* Executive::selectPlayer(std::string player)
 {
 	std::string playerType = "";
 	std::string difficulty = "";
+	Opponent* opponent = nullptr;
 	
 	std::cout << "\n";
 	std::cout << "Please specify who " << player << " is (human/computer): ";
@@ -105,7 +90,7 @@ std::string Executive::selectPlayer(std::string player)
 
 	if (playerType == "h")
 	{
-		playerType = "human";
+		opponent = new Player();
 	}
 	else if (playerType == "computer" || playerType == "c")
 	{
@@ -129,19 +114,19 @@ std::string Executive::selectPlayer(std::string player)
 
 		if (playerType == "e")
 		{
-			playerType = "easy";
+			opponent = new EasyAI();
 		}
 		else if (playerType == "m")
 		{
-			playerType = "medium";
+			opponent = new MediumAI();
 		}
 		else if (playerType == "h")
 		{
-			playerType = "hard";
+			opponent = new HardAI();
 		}
 	}
 
-	return (playerType);
+	return (opponent);
 }
 
 Executive::~Executive()

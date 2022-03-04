@@ -26,7 +26,7 @@ class Executive
 	public:
 		Executive();
 	 	void play();
-		std::string selectPlayer(std::string player);
+		Opponent* selectPlayer(std::string player);
 	 	~Executive();
 };
 #endif
