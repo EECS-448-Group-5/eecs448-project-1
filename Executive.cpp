@@ -18,6 +18,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
 Executive::Executive()
 {
@@ -27,6 +28,7 @@ void Executive::play()
 {
 	Game gameFunction;               //initializes the game logic object
 
+	srand(time(NULL));
 	std::cout << "\n";
 	std::cout << "===============================================\n";
 	std::cout << "Welcome to Battleship!\n";
