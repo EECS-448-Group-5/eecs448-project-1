@@ -7,7 +7,133 @@ Player::Player()
 
 void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
+    int shotSelection = 0;
+    int bombShotCount = 0;
+    int consecutiveShotCount = 0;
+    int randomShotCount = 0;
+    std::string shotType;
+	char col = 'A';
+    int newCol = 0;
+    int row = 0;
+    int missCount = 0;
+    bool result = false;
 
+    std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << " | consecutive: " << consecutiveShotCount << " | random: " << randomShotCount << "): ";
+    std::cin >> shotType;
+
+    while ( std::cin.fail() || ( shotType != "bomb" && shotType != "b" && shotType != "consecutive" && shotType != "c" && shotType != "random" && shotType != "r") )
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "\n";
+		std::cout << "Invalid selection. Please input bomb, consecutive, or random: ";
+		std::cin >> shotType;
+	}
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	std::cout << "===============================================\n";
+    std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
+	std::cout << "===============================================\n";
+
+    do
+    {
+		std::cin.clear();	//Prompts for input if user gives a non character
+		std::cin.ignore();
+    	std::cout << "Column: ";
+    	std::cin >> col;
+    	col = tolower(col); //change user input char to always lowercase
+    	newCol = col; //set char col to int newCol 
+    	newCol = newCol - 97; //converts it to 0-9 based on ascii value
+    	result = (newCol<=9 && newCol >=0); //checks for the converted ascii value to see if its 0=9 for a-j
+    	if(result == false)
+    	{
+      	    std::cout << "Invalid input. Please enter letters a-j.";
+    	}
+    }
+	while (result == false);  //only accept user input a-j
+
+/*
+
+    do
+    {
+		std::cin.clear();	//Prompts for input if user gives a non integer
+		std::cin.ignore();
+	    std::cout << "Row: ";
+	    std::cin >> row;
+	    result =(row<=10 && row >=1); //check user input to see if its between 1-10
+	    if(result == false)
+	    {
+	          std::cout << "Invalid input. Please enter numbers 1-10.";
+	    }
+    }
+		while (result == false); //only accept user input 1-10
+
+		if(playerName=="Player 1")
+    {
+    	missCount=0;
+			for(int i=0;i<numShips;i++)
+ 			{
+    		try
+    		{
+      		player2_ships[i]->hit(col, row); //check location of ship index and throws if the ship is not at location against player 2's placed ships
+    		}
+    		catch(const std::exception& e)
+    		{
+	        missCount++; //increments a counter for misses (1 ship selected = 1 at a specific location and so on...)
+    		}
+			}
+    	if(numShips==missCount) //if misses equals to the ship index it would mark the specific location with M for miss
+    	{
+		std::cout << "\nMISS!\n";
+      	player1_eBoard.updateBoard(col,row,missChar);
+    	}
+		else
+    	{
+			std::cout << "\nHIT!\n";
+      	player1_eBoard.updateBoard(col,row,hitChar); //if the miss counter is not incremented it would mark with * for hit
+    	}
+
+			std::cout << "===============================================\n";
+    	std::cout << "Player 1's board\n" ;
+    	player1_Board.printBoard();
+    	std::cout << "\nEnemy's Board\n" ;
+    	player1_eBoard.printBoard();
+			std::cout << "===============================================\n";
+    }
+
+		if(playerName=="Player 2")
+    {
+	    missCount= 0;
+			for(int i=0;i<numShips;i++)
+    	{
+	    	try
+	    	{
+	       player1_ships[i]->hit(col, row);//check location of ship index and throws if the ship is not at location against player 1's placed ships
+	    	}
+	    	catch(const std::exception& e)
+	    	{
+	        missCount++; //increments a counter for misses (1 ship = 1 at a specific location and so on...)
+	    	}
+			}
+		if(numShips==missCount)
+	    {
+			std::cout << "\nMISS!\n";
+	      player2_eBoard.updateBoard(col,row,missChar); //if misses equals to the ship index it would mark the specific location with M for miss
+	    }
+	    else
+	    {
+			std::cout << "\nHIT!\n";
+	      player2_eBoard.updateBoard(col,row,hitChar); //if the miss counter is not incremented it would mark with * for hit
+	    }
+			std::cout << "===============================================\n";
+			std::cout << "Player 2's board\n";
+	    player2_Board.printBoard();
+	    std::cout << "Enemy's Board\n" ;
+	    player2_eBoard.printBoard();
+			std::cout << "===============================================\n";
+  	} */
 }
 
 void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
@@ -162,7 +288,7 @@ bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips,
     guessBoard->updateBoard(col, row, 'M');
     return false;
 }
-void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard){
     
 }
 

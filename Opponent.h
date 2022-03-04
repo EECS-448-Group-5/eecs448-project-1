@@ -16,6 +16,7 @@ class Opponent {
         //std::cout << "I AM HERE\n";
         int* base;
         for(int i=numShips; i>0; i--){
+            homeBoard->printBoard();
             Ship* nextShip = nullptr;
             bool invalid = true;
             while(invalid){
@@ -30,8 +31,8 @@ class Opponent {
                 //ensure each space of the ship is valid.
                 for(int j=0; j<i; j++){
                     //check if the j-th tile of the ship would be invalid
-                    std::cout << "tile: "<< (char)(base[0] + j*isVert) << ", " << base[1] + j*(1-isVert) <<"\n";
-                    if(!isValidGuess(base[0] + j*isVert, base[1] + j*(1-isVert), homeBoard)){
+                    std::cout << "tile: "<< (char)(base[0] + j*(1-isVert)) << ", " << base[1] + j*isVert <<"\n";
+                    if(!isValidGuess(base[0] + j*(1-isVert), base[1] + j*isVert, homeBoard)){
                         invalid = true;
                         break;
                     }
@@ -55,38 +56,13 @@ class Opponent {
         delete[] base;
     };
 
-    virtual void makeRandomGuess(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard) {
-        srand(time(NULL));
-        int col = 0;
-        int row = 0;
-        do {
-            col = rand() % 10; //to make random guess, obtain two random numbers between 0 and 9 (inputs to board array)
-            row = rand() % 10;
-        }
-        while(!guessBoard->isValidSpace(col, row)); //while conditions controls for repeat guesses
-    
-        col = col + 97;
-        char col_char = col; //transform the column number into its ASCII equivalent so other functions recognize it
-        col = col - 97;
-
-        for(int i=0; i<numShips; i++) { //informs the ship arrays whether they'll be hit or not
-            enemyShips[i]->hit(col_char, row);
-        }
-
-        if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
-            guessBoard->updateBoard(col_char, row, '*');
-        }
-        else {
-            guessBoard->updateBoard(col_char, row, 'M');
-        }
-    }
 
     protected:
 
     bool isValidGuess(char col, int row, Board* guessBoard){
         return col >= 97 && col <= 106 && 
            row >= 1 && row <= 10 && 
-           guessBoard->isValidSpace(col - 97, row);
+           guessBoard->isValidSpace(col - 97, row-1);
     }
 
     int* getRandomGuess(Board* guessBoard){
