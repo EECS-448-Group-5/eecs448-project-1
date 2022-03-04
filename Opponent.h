@@ -29,6 +29,7 @@ class Opponent {
                     }
                 }
 
+                //at this point, we have a valid ship location, so we go ahead and create the ship
                 if(isVert){
                     nextShip = new Ship(i, 'v', base[0], base[1]);
                 }else{
