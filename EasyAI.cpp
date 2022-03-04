@@ -37,9 +37,9 @@ void EasyAI::makeRandomGuess(Board* enemyBoard, Ship** enemyShips, int numShips,
     }
 
     if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
-        guessBoard->updateBoard(col_char, row, '*');
+        guessBoard->updateBoard(col_char, row+1, '*');
     }
     else {
-        guessBoard->updateBoard(col_char, row, 'M');
+        guessBoard->updateBoard(col_char, row+1, 'M');
     }
 }
