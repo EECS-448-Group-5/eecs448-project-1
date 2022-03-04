@@ -52,11 +52,11 @@ void Game::fire(Opponent* player, int playerNum)
 {
 	if (playerNum == 1)
 	{
-		player->makeMove(player1_eBoard, player2_ships, numShips, player1_eBoard);
+		player->makeMove(player2_Board, player2_ships, numShips, player1_eBoard);
 	}
 	else
 	{
-		player->makeMove(player2_eBoard, player1_ships, numShips, player2_eBoard);
+		player->makeMove(player1_Board, player1_ships, numShips, player2_eBoard);
 	}
 	
 	/*
@@ -188,23 +188,24 @@ bool Game::player1Won()
 
 bool Game::gameEndCheck()
 {
-		bool player1_end = true;
-		bool player2_end = true;
+	bool player1_end = true;
+	bool player2_end = true;
+
     for(int i=0;i<numShips;i++) //loops to check for ship index sunk status
     {
         if(player1_ships[i]->is_sunk() == false) //continues the game if all ships are not sunk from player 1
         {
             player1_end = false;
-					break;
+			break;
         }
 		}
 		for(int i=0;i<numShips;i++)
 		{
 			if(player2_ships[i]->is_sunk()==false)//continues the game if all ships are not sunk from player 2
-      {
-          player2_end = false;
-					break;
-      }
+        	{
+          		player2_end = false;
+				break;
+        	}
 		}
  	return(player1_end || player2_end); //return either the player 1 and 2 boolean
 }
