@@ -119,16 +119,13 @@ void Game::shipPlacement()
 	}
 }
 
-<<<<<<< HEAD
 void Game::fire(Opponent* player)
 {
 
 }
 
 /*
-=======
 // need to modify this fire method so that the player can choose the shot selection first. 
->>>>>>> 8f2e4b3709c2288808c7287c61a34e761c78ae70
 void Game::fire(std::string playerName)
 {
 	int shotSelection=0;
