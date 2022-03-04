@@ -16,6 +16,7 @@ class Opponent {
         //std::cout << "I AM HERE\n";
         int* base;
         for(int i=numShips; i>0; i--){
+            homeBoard->printBoard();
             Ship* nextShip = nullptr;
             bool invalid = true;
             while(invalid){
