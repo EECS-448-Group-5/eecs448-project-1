@@ -62,7 +62,7 @@ class Opponent {
     bool isValidGuess(char col, int row, Board* guessBoard){
         return col >= 97 && col <= 106 && 
            row >= 1 && row <= 10 && 
-           guessBoard->isValidSpace(col - 97, row);
+           guessBoard->isValidSpace(col - 97, row-1);
     }
 
     int* getRandomGuess(Board* guessBoard){
