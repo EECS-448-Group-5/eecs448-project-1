@@ -32,6 +32,8 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
 
 void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
+    enemyBoard->printBoard();
+    guessBoard->printBoard();
     if(lastHitRow == 0)
     {//don't know where a ship is
         int guess[2] = {97,0};//getRandomGuess() TODO impl
@@ -249,8 +251,4 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             }
         }
     }
-}
-
-void MediumAI::placeShips(int numShips, Ship** shipList, Board* homeBoard){
-
 }

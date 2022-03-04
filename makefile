@@ -10,13 +10,13 @@ ship.o: ship.cpp ship.h
 	g++ -std=c++11 -g -Wall -c ship.cpp
 game.o: game.cpp  game.h
 	g++ -std=c++11 -g -Wall -c game.cpp
-Player.o: Player.cpp Player.h
+Player.o: Player.cpp Player.h Opponent.h
 	g++ -std=c++11 -g -Wall -c Player.cpp
-MediumAI.o: MediumAI.cpp MediumAI.h
+MediumAI.o: MediumAI.cpp MediumAI.h Opponent.h
 	g++ -std=c++11 -g -Wall -c MediumAI.cpp
-EasyAI.o: EasyAI.cpp EasyAI.h
+EasyAI.o: EasyAI.cpp EasyAI.h Opponent.h
 	g++ -std=c++11 -g -Wall -c EasyAI.cpp
-HardAI.o: HardAI.cpp HardAI.h
+HardAI.o: HardAI.cpp HardAI.h Opponent.h
 	g++ -std=c++11 -g -Wall -c HardAI.cpp
 clean:
 	rm *.o Battleship
