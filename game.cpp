@@ -14,18 +14,22 @@
 
 Game::Game()
 {
-
+	player1_Board = new Board();
+	player1_eBoard = new Board();
+	player2_Board = new Board();
+	player2_eBoard = new Board();
 }
 
-void Game::shipPlacement()
+void Game::shipPlacement(Opponent* player1, Opponent* player2)
 {
 
-	while(numShips > 5 || numShips < 1)
+	while (numShips > 5 || numShips < 1)
 	{
+		std::cout << "\n";
 		std::cout << "===============================================\n";
 		std::cout << "Enter a number of ships from 1 to 5: ";
 		std::cin >> numShips;
-		if(numShips >5 || numShips < 1)
+		if (numShips > 5 || numShips < 1)
 		{
 			std::cin.clear();					//Prompts for input if user gives a non integer
 			std::cin.ignore();
@@ -38,90 +42,14 @@ void Game::shipPlacement()
 	player1_ships = new Ship*[numShips];		//Ship arrays for player 1 and player 2
 	player2_ships = new Ship*[numShips];
 
-	for (int i=1; i<3; i++)
-	{
-		for (int j=0; j<numShips; j++)
-		{
-			int invalid = 1;
-			while(invalid != 0)
-			{
-				try
-				{
-					char col = 'A';
-					int newCol = 0;
-					int row = 0;
-					char direction = 'a';
-					std::cout << "===============================================\n";
-					std::cout << "Player "<< i <<", where would you like to place ship " << j+1 << "?\n";
-          do
-          {
-			 std::cin.clear();					//Prompts for input if user gives a non integer
-			std::cin.ignore();
-	          std::cout << "Column: ";
-	          std::cin >> col;
-	          col=tolower(col);
-	          newCol = col;
-	          newCol = newCol - 97;
-	          result =(newCol<=9 && newCol >=0);
-	          if(result == false)
-	          {
-	          	std::cout << "Invalid input. Please enter letters a-j.";
-	          }
-          }
-					while (result == false);
 
-					do
-          {
-			std::cin.clear();					//Prompts for input if user gives a non integer
-			std::cin.ignore();
-          	std::cout << "Row: ";
-			std::cin >> row;
-           	result =(row<=10 && row >=1);
-           	if(result == false)
-          	{
-          		std::cout << "Invalid input. Please enter numbers 1-10.";
-          	}
-          }
-					while (result == false);
-
-          do
-          {
-          	std::cout << "Direction: ";
-						std::cin >> direction;
-          	result = (direction == 'v' || direction == 'h');
-          	if(result == false)
-          	{
-              std::cout << "Invalid input. please enter v(ertical) or h(orizonal)";
-          	}
-          }
-					while (result == false);
-					std::cout << "===============================================\n";
-
-					if(i==1)
-					{
-						player1_ships[j] = new Ship(j+1, direction, col, row);				//Based on user input, a new ship object is created and stored in their respective array
-						player1_Board.placeShip(player1_ships[j]);
-					}
-					if(i==2)
-					{
-						player2_ships[j] = new Ship(j+1, direction, col, row);
-						player2_Board.placeShip(player2_ships[j]);
-					}
-					invalid = 0;
-				}
-				catch(std::exception& e)
-				{
-					std::cout << e.what() << '\n';
-					invalid++;
-				}
-			}
-		}
-	}
+	player1->placeShips(numShips, player1_ships, player1_Board);
+	player2->placeShips(numShips, player2_ships, player2_Board);
 }
 
 void Game::fire(Opponent* player)
 {
-
+	std::cout << player << " is firing.\n";
 }
 
 /*

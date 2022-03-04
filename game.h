@@ -23,17 +23,17 @@ class Game
 	public:
 	Ship** player1_ships;
 	Ship** player2_ships;
-	Board player1_Board;
-	Board player2_Board;
-	Board player1_eBoard;
-	Board player2_eBoard;
+	Board* player1_Board;
+	Board* player2_Board;
+	Board* player1_eBoard;
+	Board* player2_eBoard;
 	char hitChar = '*';
 	char missChar= 'M';
 	int numShips = 0;
     Game();
 	bool player1WonCheck;
      
-	bool result =true;
+	bool result = true;
 	    /**
        * @pre : None
        * @post :  take in playername string to determine what position the ship is and mark with * if not mark M for miss
@@ -57,7 +57,7 @@ class Game
        * @throw : none
        * @retun : N/A
     **/
-	void shipPlacement();
+	void shipPlacement(Opponent* player1, Opponent* player2);
     /**
        * @pre : None
        * @post : return boolean of player 1 winning the game false for player 2

@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Opponent.h"
+#include <iostream>
 #include <string>
 
 class Player : public Opponent {

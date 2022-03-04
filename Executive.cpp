@@ -35,9 +35,9 @@ void Executive::play()
 	Opponent* player1 = selectPlayer("Player 1");
 	Opponent* player2 = selectPlayer("Player 2");
 
-	gameFunction.shipPlacement();
+	gameFunction.shipPlacement(player1, player2);
 	
-	
+
 
 	//starts game by looping until game over is true
 	do
