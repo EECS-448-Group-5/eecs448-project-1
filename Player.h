@@ -22,6 +22,7 @@ class Player : public Opponent {
         //char shipDirection;
         //char guessDirection;
         //int guessDistance;
+        int bombShotCount = 2;
 };
 
 #endif

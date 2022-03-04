@@ -90,7 +90,60 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
     }
 }
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+    
+    for (int i = 0; i < numShips; i++){
+        try{
+            //spot 1
+            enemyShips[i]->hit(col-1,row -1);
+            //spot 2
+            enemyShips[i]->hit(col,row -1);
+            //spot 3
+            enemyShips[i]->hit(col+1,row-1);
+            //spot 4
+            enemyShips[i]->hit(col-1,row);
+            //spot 5
+            enemyShips[i]->hit(col,row);
+            //spot 6
+            enemyShips[i]->hit(col+1,row);
+            //spot 7
+            enemyShips[i]->hit(col-1,row+1);
+            //spot 8
+            enemyShips[i]->hit(col,row+1);
+            //spot 9
+            enemyShips[i]->hit(col+1,row+1);
+
+        }
+        catch(const std::exception& e){
+            std::cerr << e.what() << '\n';
+        }
+        
+    }
+     if(!enemyBoard->isValidSpace(col - 97, row))
+    {
+            guessBoard->updateBoard(col-1, row-1, '*'); //1
+            guessBoard->updateBoard(col,row -1, '*'); //2
+            guessBoard->updateBoard(col+1,row-1, '*');//3
+            guessBoard->updateBoard(col-1,row, '*');//4
+            guessBoard->updateBoard(col, row, '*');//5
+            guessBoard->updateBoard(col+1,row, '*');//6
+            guessBoard->updateBoard(col-1,row+1, '*');//7
+            guessBoard->updateBoard(col,row+1, '*');//8
+            guessBoard->updateBoard(col+1,row+1, '*');//9
+            
+    }
+
+    guessBoard->updateBoard(col-1, row-1, 'M'); //1
+    guessBoard->updateBoard(col,row -1, 'M'); //2
+    guessBoard->updateBoard(col+1,row-1, 'M');//3
+    guessBoard->updateBoard(col-1,row, 'M');//4
+    guessBoard->updateBoard(col, row, 'M');//5
+    guessBoard->updateBoard(col+1,row, 'M');//6
+    guessBoard->updateBoard(col-1,row+1, 'M');//7
+    guessBoard->updateBoard(col,row+1, 'M');//8
+    guessBoard->updateBoard(col+1,row+1, 'M');//9
+bombShotCount--;
 }
+
 bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
       for(int i=0; i<numShips; i++){
         try{
