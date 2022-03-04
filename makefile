@@ -1,5 +1,5 @@
-Battleship: HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o
-	g++ -std=c++11 -g -Wall HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o -o Battleship
+Battleship: Player.o HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o
+	g++ -std=c++11 -g -Wall Player.o HardAI.o EasyAI.o MediumAI.o ship.o main.o game.o board.o Executive.o -o Battleship
 main.o: main.cpp Executive.h
 	g++ -std=c++11 -g -Wall -c main.cpp
 Executive.o: Executive.cpp Executive.h
@@ -10,6 +10,8 @@ ship.o: ship.cpp ship.h
 	g++ -std=c++11 -g -Wall -c ship.cpp
 game.o: game.cpp  game.h
 	g++ -std=c++11 -g -Wall -c game.cpp
+Player.o: Player.cpp Player.h
+	g++ -std=c++11 -g -Wall -c Player.cpp
 MediumAI.o: MediumAI.cpp MediumAI.h
 	g++ -std=c++11 -g -Wall -c MediumAI.cpp
 EasyAI.o: EasyAI.cpp EasyAI.h
