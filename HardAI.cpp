@@ -36,14 +36,18 @@ void HardAI::makeTargetedGuess(Board* enemyBoard, Ship** enemyShips, int numShip
     char col_char = col;
     col = col - 97;
 
-    for(int i=0; i<numShips; i++) { //updates the ship to be hit
-        enemyShips[i]->hit(col_char, row);
+    for(int i=0; i<numShips; i++){
+        try{
+            enemyShips[i]->hit(col, row);
+        }catch(std::exception& e){
+
+        }
     }
 
-    if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
-        guessBoard->updateBoard(col_char, row, '*');
+    if(!enemyBoard->isValidSpace(col_char, row+1)) { //update the guessed board
+        guessBoard->updateBoard(col_char, row+1, '*');
     }
     else {
-        guessBoard->updateBoard(col_char, row, 'M');
+        guessBoard->updateBoard(col_char, row+1, 'M');
     }
 }
