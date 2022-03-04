@@ -10,7 +10,10 @@ class Player : public Opponent {
         Player();
         void makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
         void placeShips(int numShips, Ship** shipList, Board* homeBoard);
-        void bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
+
+
+        void normalShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
+        void bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
         void consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
         void randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
 

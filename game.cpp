@@ -41,12 +41,10 @@ void Game::shipPlacement(Opponent* player1, Opponent* player2)
 
 	std::cout << "Player 1 placing ships...\n";
 	player1_ships = new Ship*[numShips];
+	player1->placeShips(numShips, player1_ships, player1_Board);
 
 	std::cout << "Player 2 placing ships...\n";
 	player2_ships = new Ship*[numShips];
-
-
-	player1->placeShips(numShips, player1_ships, player1_Board);
 	player2->placeShips(numShips, player2_ships, player2_Board);
 }
 
