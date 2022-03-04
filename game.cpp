@@ -10,6 +10,7 @@
 #include "game.h"
 #include "ship.h"
 #include "board.h"
+#include "Opponent.h"
 
 Game::Game()
 {
@@ -117,6 +118,13 @@ void Game::shipPlacement()
 		}
 	}
 }
+
+void Game::fire(Opponent* player)
+{
+
+}
+
+/*
 void Game::fire(std::string playerName)
 {
     //checks user input
@@ -223,6 +231,8 @@ void Game::fire(std::string playerName)
 			std::cout << "===============================================\n";
   	}
 }
+*/
+
 bool Game::player1Won()
 {
     for(int i=0;i<numShips;i++) //for loops for the amount of ships in the game

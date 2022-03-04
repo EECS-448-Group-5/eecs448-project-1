@@ -14,6 +14,7 @@
 #include <limits>
 #include "board.h"
 #include "ship.h"
+#include "Opponent.h"
 class Game
 {
 	private:
@@ -40,7 +41,7 @@ class Game
        * @throw : none
        * @retun : N/A
     **/
-	void fire(std::string playerName);
+	void fire(Opponent* player);
 	/**
        * @pre : None
        * @post :  check for ship index and see if status is all sunk, if true then end game else continue

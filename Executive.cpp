@@ -35,10 +35,10 @@ void Executive::play()
 	Opponent* player1 = selectPlayer("Player 1");
 	Opponent* player2 = selectPlayer("Player 2");
 
-	
-/*
 	gameFunction.shipPlacement();
 	
+	
+
 	//starts game by looping until game over is true
 	do
 	{
@@ -47,7 +47,7 @@ void Executive::play()
 		//then asks player two for a move
 		gameFunction.fire(player2);
 	} while (gameFunction.gameEndCheck() == false);   //checks if game is over and ends the loop if true
-*/
+
 	if (gameFunction.player1Won()==true)
 	{
     	std::cout << "===============================================\n";
