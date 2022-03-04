@@ -4,6 +4,7 @@
 #include "Opponent.h"
 #include <iostream>
 #include <string>
+#include <limits>
 
 class Player : public Opponent {
     public:
@@ -11,7 +12,7 @@ class Player : public Opponent {
         void makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard);
         void placeShips(int numShips, Ship** shipList, Board* homeBoard);
         void bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
-        void consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
+        bool consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
         void randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col);
 
     private:

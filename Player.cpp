@@ -11,6 +11,7 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     int bombShotCount = 0;
     int consecutiveShotCount = 0;
     int randomShotCount = 0;
+    std::string shotType;
 	
     //checks user input
     char col = 'A';
@@ -18,11 +19,26 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     int row = 0;
     int missCount = 0;
 
-    std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << "consecutive: " << consecutiveShotCount << "three-random: " << randomShotCount << "): ";
+    std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << " | consecutive: " << consecutiveShotCount << " | random: " << randomShotCount << "): ";
+    std::cin >> shotType;
+
+    while ( std::cin.fail() || ( shotType != "bomb" && shotType != "b" && shotType != "consecutive" && shotType != "c" && shotType != "random" && shotType != "r") )
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "\n";
+		std::cout << "Invalid selection. Please input bomb, consecutive, or random: ";
+		std::cin >> shotType;
+	}
+
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	std::cout << "===============================================\n";
     std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
 	std::cout << "===============================================\n";
+
+    
 
     /*
     do
