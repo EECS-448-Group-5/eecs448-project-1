@@ -89,3 +89,12 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
         }
     }
 }
+void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+}
+void Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+   
+}
+void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+   
+}
+
