@@ -30,16 +30,16 @@ void EasyAI::makeRandomGuess(Board* enemyBoard, Ship** enemyShips, int numShips,
     
     for(int i=0; i<numShips; i++){
         try{
-            enemyShips[i]->hit(col, row);
+            enemyShips[i]->hit(col_char, row+1);
         }catch(std::exception& e){
 
         }
     }
 
     if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
-        guessBoard->updateBoard(col_char, row, '*');
+        guessBoard->updateBoard(col_char, row+1, '*');
     }
     else {
-        guessBoard->updateBoard(col_char, row, 'M');
+        guessBoard->updateBoard(col_char, row+1, 'M');
     }
 }

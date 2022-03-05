@@ -44,10 +44,10 @@ void HardAI::makeTargetedGuess(Board* enemyBoard, Ship** enemyShips, int numShip
         }
     }
 
-    if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
-        guessBoard->updateBoard(col_char, row, '*');
+    if(!enemyBoard->isValidSpace(col_char, row+1)) { //update the guessed board
+        guessBoard->updateBoard(col_char, row+1, '*');
     }
     else {
-        guessBoard->updateBoard(col_char, row, 'M');
+        guessBoard->updateBoard(col_char, row+1, 'M');
     }
 }
