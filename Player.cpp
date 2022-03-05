@@ -8,9 +8,9 @@ Player::Player()
 void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
     int shotSelection = 0;
-    int bombShotCount = 0;
-    int consecutiveShotCount = 0;
-    int randomShotCount = 0;
+    int bombShotCount = 2;
+    int consecutiveShotCount = 2;
+    int randomShotCount = 2;
     std::string shotType;
 	char col = 'A';
     int newCol = 0;
@@ -215,8 +215,9 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
         }
     }
 }
+//bomb shot will hit a 3x3 with the center being the col and row passed as the parameter
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
-    
+    //hit the 9 squares
     for (int i = 0; i < numShips; i++){
         try{
             //spot 1
@@ -244,8 +245,8 @@ void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
         }
         
     }
-     if(!enemyBoard->isValidSpace(col - 97, row))
-    {
+    //update board
+     if(!enemyBoard->isValidSpace(col - 97, row)){
             guessBoard->updateBoard(col-1, row-1, '*'); //1
             guessBoard->updateBoard(col,row -1, '*'); //2
             guessBoard->updateBoard(col+1,row-1, '*');//3
