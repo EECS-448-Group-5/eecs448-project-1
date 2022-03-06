@@ -136,6 +136,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
         else
         {//know where a ship is, and know which direction we're guessing
 
+            //generating guess
             int guess[2] = {lastHitCol, lastHitRow};
 
 
