@@ -283,6 +283,7 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
 }
 //bomb shot will hit a 3x3 with the center being the col and row passed as the parameter
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+    bombShotCount--;
     //hit the 9 squares
     for(int r = row-1; r <= row+1; r++){
         for(int c = col-1; c <= col+1; c++){

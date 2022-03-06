@@ -170,13 +170,14 @@ void Game::fire(Opponent* player, int playerNum)
 	  */
 }
 
+//assumes the game has already ended, and one player has won.
 bool Game::player1Won()
 {
     for(int i=0;i<numShips;i++) //for loops for the amount of ships in the game
     {
-        if(player1_ships[i]->is_sunk()==false) //checks the status of the ship if it marked with *
+        if(player1_ships[i]->is_sunk()==false) //if one of player 1's ships has not been sunk
             {
-                player1WonCheck = true; //tells the game that player 1 has lost
+                player1WonCheck = true; //tells the game that player 1 has won
             }
     }
     return player1WonCheck; //returning the true false statement
