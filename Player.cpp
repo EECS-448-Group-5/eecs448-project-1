@@ -18,7 +18,10 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     std::cout << "Enter shot type (normal: inf, | bomb: " << bombShotCount << " | consecutive: " << consecutiveShotCount << " | random: " << randomShotCount << "): ";
     std::cin >> shotType;
 
-    while ( std::cin.fail() || ( shotType != "bomb" && shotType != "b" && shotType != "consecutive" && shotType != "c" && shotType != "random" && shotType != "r") )
+    while ( std::cin.fail() || ( shotType != "n" && shotType != "normal" && 
+                               (shotType != "bomb" && shotType != "b" || bombShotCount == 0) && 
+                               (shotType != "consecutive" && shotType != "c" || consecutiveShotCount == 0) && 
+                               (shotType != "random" && shotType != "r" || randomShotCount == 0)) )
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -75,7 +78,41 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
         return;
     }else if(shotType == "b" || shotType == "bomb"){
         bombShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
+        return;
     }
+
+    //normal shot
+
+    bool isHit = false;
+
+    for(int i=0; i<numShips; i++){
+        try{
+            enemyShips[i]->hit(col, row);
+        }catch(std::exception& e){
+
+        }
+    }
+
+
+    if(!enemyBoard->isValidSpace(col - 97, row-1))
+    {
+        std::cout << "\nHIT!\n";
+        guessBoard->updateBoard(col, row, '*');
+        isHit = true;
+    }
+    else
+    {
+        std::cout << "\nMISS!\n";
+        guessBoard->updateBoard(col, row, 'M');
+    }
+
+
+    std::cout << "===============================================\n";
+    std::cout << "Player's board\n" ;
+    //player1_Board.printBoard();
+    std::cout << "\nEnemy's Board\n" ;
+    guessBoard->printBoard();
+	std::cout << "===============================================\n";
 
 /*
 
