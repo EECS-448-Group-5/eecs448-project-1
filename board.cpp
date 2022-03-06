@@ -93,10 +93,36 @@ void Board::placeShip(Ship* entry)
 	}
 	if(direction+entry->get_size()-1 <= 10)			//Makes sure the size of the ship will fit inside the board
 	{
+
+		//make sure the ship placement is valid
 		for (int i=0; i<entry->get_size(); i++)
 		{
 			
 			if(isValidSpace(newCol, row-1))			//Checks if the inputted coordinate is empty
+			{
+				if(entry->get_direction() == 'h')
+				{
+					col++;			//if horizontal, the cols get changed
+					newCol++;
+				}
+				if(entry->get_direction() == 'v')
+				{
+					row++;			//if vertical, the rows get changed
+				}
+				increment++;
+			}else{
+				throw(std::runtime_error("Invalid space."));
+			}	
+		}
+
+		increment = 0;
+		col = entry->get_horiz_start();
+		col = tolower(col);
+		newCol = col-97;
+		row = entry->get_vert_start();
+
+		//actually place the ship
+		for (int i=0; i<entry->get_size(); i++)
 			{
 				updateBoard(col, row, entry->get_ship()[increment]);		//Board at coordinates is updated
 				if(entry->get_direction() == 'h')
@@ -110,11 +136,6 @@ void Board::placeShip(Ship* entry)
 				}
 				increment++;
 			}
-			else
-			{
-				throw(std::runtime_error("Invalid space."));
-			}
-		}
 	}
 	else
 	{
@@ -124,7 +145,7 @@ void Board::placeShip(Ship* entry)
 
 bool Board::isValidSpace(int col, int row)
 {
-	if(board[row][col] == '-')		//Checks if coordinate currently has no ships
+	if((col >= 97 && col <=106) && (row >= 0 && row <=9) && (board[row][col] == '-'))	//Checks if coordinate currently has no ships
 	{
 		return(true);
 	}

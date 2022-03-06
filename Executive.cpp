@@ -118,15 +118,15 @@ Opponent* Executive::selectPlayer(std::string player)
 
     	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		if (playerType == "e")
+		if (playerType == "e" || playerType == "easy")
 		{
 			opponent = new EasyAI();
 		}
-		else if (playerType == "m")
+		else if (playerType == "m" || playerType == "medium")
 		{
 			opponent = new MediumAI();
 		}
-		else if (playerType == "h")
+		else if (playerType == "h" || playerType == "hard")
 		{
 			opponent = new HardAI();
 		}

@@ -11,6 +11,7 @@ MediumAI::MediumAI()
 
 bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
+    //update each ship so it knows if it's sunk
     for(int i=0; i<numShips; i++){
         try{
             enemyShips[i]->hit(col, row);
@@ -19,7 +20,7 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
         }
     }
 
-
+    //if the guess is a hit
     if(!enemyBoard->isValidSpace(col - 97, row-1))
     {
             guessBoard->updateBoard(col, row, '*');
@@ -32,13 +33,11 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
 
 void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
-    enemyBoard->printBoard();
-    guessBoard->printBoard();
     if(lastHitRow == 0)
     {//don't know where a ship is
         int* guess = getRandomGuess(guessBoard);
 
-        std::cout<<"Move: " << (char)guess[0] << guess[1];
+        std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
 
         //if the random guess is a hit, make a note of where the hit was.
         if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
@@ -59,6 +58,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
 
             if(guessDirection == 'u')
             {
+                guess[0] = lastHitCol;
                 guess[1] = lastHitRow - guessDistance;
                 if(!isValidGuess(guess[0], guess[1], guessBoard))
                 {//if the guess is invalid, go ahead and guess to the right instead.
@@ -69,6 +69,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             if(guessDirection == 'r')
             {
                 guess[0] = lastHitCol + guessDistance;
+                guess[1] = lastHitRow;
                 if(!isValidGuess(guess[0], guess[1], guessBoard))
                 {//if the guess is invalid, go ahead and guess down instead.
                     guessDirection = 'd';
@@ -77,6 +78,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
 
             if(guessDirection == 'd')
             {
+                guess[0] = lastHitCol;
                 guess[1] = lastHitRow + guessDistance;
                 if(!isValidGuess(guess[0], guess[1], guessBoard))
                 {//if the guess is invalid, go ahead and guess to the left instead.
@@ -87,6 +89,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             if(guessDirection == 'l')
             {
                 guess[0] = lastHitCol - guessDistance;
+                guess[1] = lastHitRow;
                 if(!isValidGuess(guess[0], guess[1], guessBoard))
                 {//at this point, we're out of directions to guess, so we must have sunk the 1x1, and should make a random move.
                     guessDirection = 'u';
@@ -97,7 +100,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
                 }
             }
 
-            std::cout<<"Move: " << (char)guess[0] << guess[1];
+            std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
 
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
@@ -133,6 +136,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
         else
         {//know where a ship is, and know which direction we're guessing
 
+            //generating guess
             int guess[2] = {lastHitCol, lastHitRow};
 
 
@@ -220,7 +224,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             }
 
 
-            std::cout<<"Move: " << (char)guess[0] << guess[1];
+            std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
                 guessDistance++;
