@@ -7,6 +7,14 @@ Player::Player()
 
 void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
+    std::cout << "===============================================\n";
+    std::cout << "Your board\n" ;
+    homeBoard->printBoard();
+    std::cout << "\nEnemy's Board\n" ;
+    guessBoard->printBoard();
+	std::cout << "===============================================\n";
+
+
     int shotSelection = 0;
     std::string shotType;
 	char col = 'A';
@@ -27,7 +35,7 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		std::cout << "\n";
-		std::cout << "Invalid selection. Please input bomb, consecutive, or random: ";
+		std::cout << "Invalid selection. Please input normal, bomb, consecutive, or random: ";
 		std::cin >> shotType;
 	}
 
@@ -35,84 +43,81 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 
     if(shotType == "random" || shotType == "r"){
         randomShot(enemyBoard, enemyShips, numShips, guessBoard);
-        return;
-    }
+    }else{
 
-	std::cout << "===============================================\n";
-    std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
-	std::cout << "===============================================\n";
+        do
+        {
+            //get input coordinates
+        	std::cout << "===============================================\n";
+            std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
+        	std::cout << "===============================================\n";
 
-    do
-    {
-		std::cin.clear();	//Prompts for input if user gives a non character
-		std::cin.ignore();
-    	std::cout << "Column: ";
-    	std::cin >> col;
-    	col = tolower(col); //change user input char to always lowercase
-    	newCol = col; //set char col to int newCol 
-    	newCol = newCol - 97; //converts it to 0-9 based on ascii value
-    	result = (newCol<=9 && newCol >=0); //checks for the converted ascii value to see if its 0=9 for a-j
-    	if(result == false)
-    	{
-      	    std::cout << "Invalid input. Please enter letters a-j.";
-    	}
-    }
-	while (result == false);  //only accept user input a-j
+            do
+            {
+        		std::cin.clear();	//Prompts for input if user gives a non character
+        		std::cin.ignore();
+            	std::cout << "Column: ";
+            	std::cin >> col;
+            	col = tolower(col); //change user input char to always lowercase
+            	newCol = col; //set char col to int newCol 
+            	newCol = newCol - 97; //converts it to 0-9 based on ascii value
+            	result = (newCol<=9 && newCol >=0); //checks for the converted ascii value to see if its 0=9 for a-j
+            	if(result == false)
+            	{
+              	    std::cout << "Invalid input. Please enter letters a-j.";
+            	}
+            }
+        	while (result == false);  //only accept user input a-j
 
-    do
-    {
-		std::cin.clear();	//Prompts for input if user gives a non character
-		std::cin.ignore();
-    	std::cout << "Row: ";
-    	std::cin >> row;
-    	result = (row<=10 && row >=1); //checks for the converted ascii value to see if its 0=9 for a-j
-    	if(result == false)
-    	{
-      	    std::cout << "Invalid input. Please enter letters a-j.";
-    	}
-    }
-	while (result == false);  //only accept row input 1-10
-
-    if(shotType == "c" || shotType == "consecutive"){
-        consecutiveShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
-        return;
-    }else if(shotType == "b" || shotType == "bomb"){
-        bombShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
-        return;
-    }
-
-    //normal shot
-
-    bool isHit = false;
-
-    for(int i=0; i<numShips; i++){
-        try{
-            enemyShips[i]->hit(col, row);
-        }catch(std::exception& e){
+            do
+            {
+        		std::cin.clear();	//Prompts for input if user gives a non character
+        		std::cin.ignore();
+            	std::cout << "Row: ";
+            	std::cin >> row;
+            	result = (row<=10 && row >=1); //checks for the converted ascii value to see if its 0=9 for a-j
+            	if(result == false)
+            	{
+              	    std::cout << "Invalid input. Please enter letters a-j.";
+            	}
+            }
+        	while (result == false);  //only accept row input 1-10
 
         }
+        while ((shotType == "c" || shotType == "consecutive") && 
+                consecutiveShot(enemyBoard, enemyShips, numShips, guessBoard, row, col));
+        //always get coords once, then repeatedly get coords each time there is a successful consecutive shot.
+
+
+        if(shotType == "b" || shotType == "bomb"){
+            bombShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
+        }else if(shotType == "n" || shotType == "normal"){
+            //normal shot
+
+            for(int i=0; i<numShips; i++){
+                try{
+                    enemyShips[i]->hit(col, row);
+                }catch(std::exception& e){
+
+                }
+            }
+
+            if(!enemyBoard->isValidSpace(col - 97, row-1))
+            {
+                std::cout << "\nHIT!\n";
+                guessBoard->updateBoard(col, row, '*');
+            }
+            else
+            {
+                std::cout << "\nMISS!\n";
+                guessBoard->updateBoard(col, row, 'M');
+            }
+        }
+
     }
 
 
-    if(!enemyBoard->isValidSpace(col - 97, row-1))
-    {
-        std::cout << "\nHIT!\n";
-        guessBoard->updateBoard(col, row, '*');
-        isHit = true;
-    }
-    else
-    {
-        std::cout << "\nMISS!\n";
-        guessBoard->updateBoard(col, row, 'M');
-    }
-
-
-    std::cout << "===============================================\n";
-    std::cout << "Player's board\n" ;
-    //player1_Board.printBoard();
-    std::cout << "\nEnemy's Board\n" ;
-    guessBoard->printBoard();
-	std::cout << "===============================================\n";
+    
 
 /*
 
@@ -198,6 +203,7 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 
 void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
 {
+    this->homeBoard = homeBoard;
     for (int i = 0; i < numShips; i++)
     {
         int invalid = 1;
@@ -278,61 +284,27 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
 //bomb shot will hit a 3x3 with the center being the col and row passed as the parameter
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
     //hit the 9 squares
-    for (int i = 0; i < numShips; i++){
-        try{
-            //spot 1
-            enemyShips[i]->hit(col-1,row -1);
-            //spot 2
-            enemyShips[i]->hit(col,row -1);
-            //spot 3
-            enemyShips[i]->hit(col+1,row-1);
-            //spot 4
-            enemyShips[i]->hit(col-1,row);
-            //spot 5
-            enemyShips[i]->hit(col,row);
-            //spot 6
-            enemyShips[i]->hit(col+1,row);
-            //spot 7
-            enemyShips[i]->hit(col-1,row+1);
-            //spot 8
-            enemyShips[i]->hit(col,row+1);
-            //spot 9
-            enemyShips[i]->hit(col+1,row+1);
+    for(int r = row-1; r <= row+1; r++){
+        for(int c = col-1; c <= col+1; c++){
+            for(int i=0; i<numShips; i++){
+                try{
+                    enemyShips[i]->hit(c, r);
+                }catch(std::exception& e){}
+            }
 
+            if(!enemyBoard->isValidSpace(c-97, r-1)){
+                guessBoard->updateBoard(c, r, '*');
+            }else{
+                guessBoard->updateBoard(c, r, 'M');
+            }
         }
-        catch(const std::exception& e){
-            std::cerr << e.what() << '\n';
-        }
-        
-    }
-    //update board
-     if(!enemyBoard->isValidSpace(col - 97, row)){
-            guessBoard->updateBoard(col-1, row-1, '*'); //1
-            guessBoard->updateBoard(col,row -1, '*'); //2
-            guessBoard->updateBoard(col+1,row-1, '*');//3
-            guessBoard->updateBoard(col-1,row, '*');//4
-            guessBoard->updateBoard(col, row, '*');//5
-            guessBoard->updateBoard(col+1,row, '*');//6
-            guessBoard->updateBoard(col-1,row+1, '*');//7
-            guessBoard->updateBoard(col,row+1, '*');//8
-            guessBoard->updateBoard(col+1,row+1, '*');//9
-            
     }
 
-    guessBoard->updateBoard(col-1, row-1, 'M'); //1
-    guessBoard->updateBoard(col,row -1, 'M'); //2
-    guessBoard->updateBoard(col+1,row-1, 'M');//3
-    guessBoard->updateBoard(col-1,row, 'M');//4
-    guessBoard->updateBoard(col, row, 'M');//5
-    guessBoard->updateBoard(col+1,row, 'M');//6
-    guessBoard->updateBoard(col-1,row+1, 'M');//7
-    guessBoard->updateBoard(col,row+1, 'M');//8
-    guessBoard->updateBoard(col+1,row+1, 'M');//9
-bombShotCount--;
 }
 
 bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
-      for(int i=0; i<numShips; i++){
+    
+    for(int i=0; i<numShips; i++){
         try{
             enemyShips[i]->hit(col, row);
         }catch(std::exception& e){
@@ -340,16 +312,20 @@ bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips,
         }
     }
 
-    if(!enemyBoard->isValidSpace(col - 97, row))
+    if(!enemyBoard->isValidSpace(col - 97, row-1))
     {
             guessBoard->updateBoard(col, row, '*');
             return true;
     }
 
+    //only decrement ammo when they miss (so it only decrements once per consecutive shot)
+    consecutiveShotCount--;
+
     guessBoard->updateBoard(col, row, 'M');
     return false;
 }
 void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard){
+    randomShotCount--;
     for(int i = 0; i<3; i++){
         srand(time(NULL));
         int col = 0;
