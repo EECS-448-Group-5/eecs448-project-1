@@ -16,14 +16,11 @@ class Opponent {
         //std::cout << "I AM HERE\n";
         int* base;
         for(int i=numShips; i>0; i--){
-            homeBoard->printBoard();
             Ship* nextShip = nullptr;
             bool invalid = true;
             while(invalid){
                 invalid = false;
                 base = getRandomGuess(homeBoard);
-
-                std::cout << base[0] << ", " << base[1] << '\n';
 
                 //random direction
                 int isVert = rand() % 2;
@@ -31,7 +28,6 @@ class Opponent {
                 //ensure each space of the ship is valid.
                 for(int j=0; j<i; j++){
                     //check if the j-th tile of the ship would be invalid
-                    std::cout << "tile: "<< (char)(base[0] + j*(1-isVert)) << ", " << base[1] + j*isVert <<"\n";
                     if(!isValidGuess(base[0] + j*(1-isVert), base[1] + j*isVert, homeBoard)){
                         invalid = true;
                         break;
@@ -41,7 +37,6 @@ class Opponent {
                 if(invalid) continue;
 
                 //at this point, we have a valid ship location, so we go ahead and create the ship
-                std::cout << "len "<<i<<", dir "<<isVert <<", coords "<<base[0]<<" "<<base[1]<<"\n";
                 if(isVert){
                     nextShip = new Ship(i, 'v', base[0], base[1]);
                 }else{
@@ -81,8 +76,6 @@ class Opponent {
         int* guess = new int[2];//{col_char, row};
         guess[0] = col_char;
         guess[1] = row + 1;
-
-        std::cout << col_char << ", " << row+1 << '\n';
 
         return guess;
     }

@@ -174,13 +174,9 @@ bool Game::player1Won()
 {
     for(int i=0;i<numShips;i++) //for loops for the amount of ships in the game
     {
-        if(player1_ships[i]->is_sunk()==true) //checks the status of the ship if it marked with *
+        if(player1_ships[i]->is_sunk()==false) //checks the status of the ship if it marked with *
             {
-                player1WonCheck = false; //tells the game that player 1 has lost
-            }
-            else
-            {
-                player1WonCheck = true;//the game ends with player 2 winning
+                player1WonCheck = true; //tells the game that player 1 has lost
             }
     }
     return player1WonCheck; //returning the true false statement

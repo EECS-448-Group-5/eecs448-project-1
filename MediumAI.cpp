@@ -32,13 +32,11 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
 
 void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
-    enemyBoard->printBoard();
-    guessBoard->printBoard();
     if(lastHitRow == 0)
     {//don't know where a ship is
         int* guess = getRandomGuess(guessBoard);
 
-        std::cout<<"Move: " << (char)guess[0] << guess[1];
+        std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
 
         //if the random guess is a hit, make a note of where the hit was.
         if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
@@ -101,7 +99,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
                 }
             }
 
-            std::cout<<"Move: " << (char)guess[0] << guess[1];
+            std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
 
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
@@ -224,7 +222,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             }
 
 
-            std::cout<<"Move: " << (char)guess[0] << guess[1];
+            std::cout<<"Move: " << (char)guess[0] << guess[1] << "\n";
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
                 guessDistance++;

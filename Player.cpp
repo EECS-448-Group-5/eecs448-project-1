@@ -286,6 +286,9 @@ void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     //hit the 9 squares
     for(int r = row-1; r <= row+1; r++){
         for(int c = col-1; c <= col+1; c++){
+            //if the tile is off the board, do nothing.
+            if(r==0 || r==11 || c==96 || c==107) continue;
+            //let each ship update if they've been hit/sunk
             for(int i=0; i<numShips; i++){
                 try{
                     enemyShips[i]->hit(c, r);
