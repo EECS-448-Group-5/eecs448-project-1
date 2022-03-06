@@ -41,6 +41,7 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+    //if they're doing a random shot, we don't need to ask for coordinates.
     if(shotType == "random" || shotType == "r"){
         randomShot(enemyBoard, enemyShips, numShips, guessBoard);
     }else{
@@ -55,7 +56,7 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
             do
             {
         		std::cin.clear();	//Prompts for input if user gives a non character
-        		std::cin.ignore();
+        		//std::cin.ignore();
             	std::cout << "Column: ";
             	std::cin >> col;
             	col = tolower(col); //change user input char to always lowercase
@@ -86,7 +87,8 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
         }
         while ((shotType == "c" || shotType == "consecutive") && 
                 consecutiveShot(enemyBoard, enemyShips, numShips, guessBoard, row, col));
-        //always get coords once, then repeatedly get coords each time there is a successful consecutive shot.
+        //always get coords once, then repeatedly get new coords each time there is a successful consecutive shot.
+        //NOTE: will not call consecutiveShot if the first line evaluates to false
 
 
         if(shotType == "b" || shotType == "bomb"){
@@ -115,90 +117,6 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
         }
 
     }
-
-
-    
-
-    do
-    {
-		std::cin.clear();	//Prompts for input if user gives a non integer
-		std::cin.ignore();
-	    std::cout << "Row (numbers 1-10): ";
-	    std::cin >> row;
-	    result =(row<=10 && row >=1); //check user input to see if its between 1-10
-	    if(result == false)
-	    {
-	          std::cout << "Invalid input. Please enter numbers 1-10.";
-	    }
-    }
-	while (result == false); //only accept user input 1-10
-
-
-/*
-	if(playerName=="Player 1")
-    {
-    	missCount=0;
-			for(int i=0;i<numShips;i++)
- 			{
-    		try
-    		{
-      		player2_ships[i]->hit(col, row); //check location of ship index and throws if the ship is not at location against player 2's placed ships
-    		}
-    		catch(const std::exception& e)
-    		{
-	        missCount++; //increments a counter for misses (1 ship selected = 1 at a specific location and so on...)
-    		}
-			}
-    	if(numShips==missCount) //if misses equals to the ship index it would mark the specific location with M for miss
-    	{
-		std::cout << "\nMISS!\n";
-      	player1_eBoard.updateBoard(col,row,missChar);
-    	}
-		else
-    	{
-			std::cout << "\nHIT!\n";
-      	player1_eBoard.updateBoard(col,row,hitChar); //if the miss counter is not incremented it would mark with * for hit
-    	}
-
-			std::cout << "===============================================\n";
-    	std::cout << "Player 1's board\n" ;
-    	player1_Board.printBoard();
-    	std::cout << "\nEnemy's Board\n" ;
-    	player1_eBoard.printBoard();
-			std::cout << "===============================================\n";
-    }
-
-		if(playerName=="Player 2")
-    {
-	    missCount= 0;
-			for(int i=0;i<numShips;i++)
-    	{
-	    	try
-	    	{
-	       player1_ships[i]->hit(col, row);//check location of ship index and throws if the ship is not at location against player 1's placed ships
-	    	}
-	    	catch(const std::exception& e)
-	    	{
-	        missCount++; //increments a counter for misses (1 ship = 1 at a specific location and so on...)
-	    	}
-			}
-		if(numShips==missCount)
-	    {
-			std::cout << "\nMISS!\n";
-	      player2_eBoard.updateBoard(col,row,missChar); //if misses equals to the ship index it would mark the specific location with M for miss
-	    }
-	    else
-	    {
-			std::cout << "\nHIT!\n";
-	      player2_eBoard.updateBoard(col,row,hitChar); //if the miss counter is not incremented it would mark with * for hit
-	    }
-			std::cout << "===============================================\n";
-			std::cout << "Player 2's board\n";
-	    player2_Board.printBoard();
-	    std::cout << "Enemy's Board\n" ;
-	    player2_eBoard.printBoard();
-			std::cout << "===============================================\n";
-  	} */
 }
 
 void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
@@ -276,16 +194,21 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
             catch(std::exception& e)
             {
                 std::cout << e.what() << '\n';
-                invalid++;
+                invalid = 1;
             }
         }
     }
 }
 //bomb shot will hit a 3x3 with the center being the col and row passed as the parameter
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+    bombShotCount--;
     //hit the 9 squares
     for(int r = row-1; r <= row+1; r++){
         for(int c = col-1; c <= col+1; c++){
+            //if the tile is off the board, do nothing.
+            if(r==0 || r==11 || c==96 || c==107) continue;
+
+            //let each ship update if they've been hit/sunk
             for(int i=0; i<numShips; i++){
                 try{
                     enemyShips[i]->hit(c, r);
