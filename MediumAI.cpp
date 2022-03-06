@@ -11,6 +11,7 @@ MediumAI::MediumAI()
 
 bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
+    //update each ship so it knows if it's sunk
     for(int i=0; i<numShips; i++){
         try{
             enemyShips[i]->hit(col, row);
@@ -19,7 +20,7 @@ bool MediumAI::makeGuess(char col, int row, Board* enemyBoard, Ship** enemyShips
         }
     }
 
-
+    //if the guess is a hit
     if(!enemyBoard->isValidSpace(col - 97, row-1))
     {
             guessBoard->updateBoard(col, row, '*');

@@ -54,12 +54,15 @@ class Opponent {
 
     protected:
 
+    //returns whether a potential guess is within bounds and does not hit an already guessed board.
+    //can also be used to determine whether a guess is a miss or not when given a board with ships placed on it
     bool isValidGuess(char col, int row, Board* guessBoard){
         return col >= 97 && col <= 106 && 
            row >= 1 && row <= 10 && 
            guessBoard->isValidSpace(col - 97, row-1);
     }
 
+    //returns a pair of ints that are a valid (not yet made) guess.
     int* getRandomGuess(Board* guessBoard){
         //srand(time(NULL));
         int col = 0;
