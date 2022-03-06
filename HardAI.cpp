@@ -1,3 +1,12 @@
+/**------------------------------------------------------------------------
+ * @file : HardAI.cpp
+ * @author : Mickey McMahon
+ * @assignment : EECS448 - Project 2
+ * @brief : Implements all variables and methods for HardAI class
+ * @date: 03-06-22
+ *
+ ------------------------------------------------------------------------ **/
+
 #include "HardAI.h"
 #include "board.h"
 #include "ship.h"
@@ -7,7 +16,7 @@
 #include <time.h>
 
 HardAI::HardAI() {
-    
+    hitCount = 0;
 }
 
 void HardAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard) {
@@ -44,7 +53,7 @@ void HardAI::makeTargetedGuess(Board* enemyBoard, Ship** enemyShips, int numShip
         }
     }
 
-    if(!enemyBoard->isValidSpace(col_char, row+1)) { //update the guessed board
+    if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
         guessBoard->updateBoard(col_char, row+1, '*');
     }
     else {
