@@ -8,9 +8,9 @@ Player::Player()
 void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
     int shotSelection = 0;
-    int bombShotCount = 0;
-    int consecutiveShotCount = 0;
-    int randomShotCount = 0;
+    int bombShotCount = 2;
+    int consecutiveShotCount = 2;
+    int randomShotCount = 2;
     std::string shotType;
 	char col = 'A';
     int newCol = 0;
@@ -215,8 +215,62 @@ void Player::placeShips(int numShips, Ship** shipList, Board* homeBoard)
         }
     }
 }
+//bomb shot will hit a 3x3 with the center being the col and row passed as the parameter
 void Player::bombShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
+    //hit the 9 squares
+    for (int i = 0; i < numShips; i++){
+        try{
+            //spot 1
+            enemyShips[i]->hit(col-1,row -1);
+            //spot 2
+            enemyShips[i]->hit(col,row -1);
+            //spot 3
+            enemyShips[i]->hit(col+1,row-1);
+            //spot 4
+            enemyShips[i]->hit(col-1,row);
+            //spot 5
+            enemyShips[i]->hit(col,row);
+            //spot 6
+            enemyShips[i]->hit(col+1,row);
+            //spot 7
+            enemyShips[i]->hit(col-1,row+1);
+            //spot 8
+            enemyShips[i]->hit(col,row+1);
+            //spot 9
+            enemyShips[i]->hit(col+1,row+1);
+
+        }
+        catch(const std::exception& e){
+            std::cerr << e.what() << '\n';
+        }
+        
+    }
+    //update board
+     if(!enemyBoard->isValidSpace(col - 97, row)){
+            guessBoard->updateBoard(col-1, row-1, '*'); //1
+            guessBoard->updateBoard(col,row -1, '*'); //2
+            guessBoard->updateBoard(col+1,row-1, '*');//3
+            guessBoard->updateBoard(col-1,row, '*');//4
+            guessBoard->updateBoard(col, row, '*');//5
+            guessBoard->updateBoard(col+1,row, '*');//6
+            guessBoard->updateBoard(col-1,row+1, '*');//7
+            guessBoard->updateBoard(col,row+1, '*');//8
+            guessBoard->updateBoard(col+1,row+1, '*');//9
+            
+    }
+
+    guessBoard->updateBoard(col-1, row-1, 'M'); //1
+    guessBoard->updateBoard(col,row -1, 'M'); //2
+    guessBoard->updateBoard(col+1,row-1, 'M');//3
+    guessBoard->updateBoard(col-1,row, 'M');//4
+    guessBoard->updateBoard(col, row, 'M');//5
+    guessBoard->updateBoard(col+1,row, 'M');//6
+    guessBoard->updateBoard(col-1,row+1, 'M');//7
+    guessBoard->updateBoard(col,row+1, 'M');//8
+    guessBoard->updateBoard(col+1,row+1, 'M');//9
+bombShotCount--;
 }
+
 bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard, int row, char col){
       for(int i=0; i<numShips; i++){
         try{
@@ -236,6 +290,33 @@ bool Player::consecutiveShot(Board* enemyBoard, Ship** enemyShips, int numShips,
     return false;
 }
 void Player::randomShot(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard){
+    for(int i = 0; i<3; i++){
+        srand(time(NULL));
+        int col = 0;
+        int row = 0;
+        do {
+            col = rand() % 10; //to make random guess, obtain two random numbers between 0 and 9 (inputs to board array)
+            row = rand() % 10;
+        }
+        while(!guessBoard->isValidSpace(col, row)); //while conditions controls for repeat guesses
     
+        col = col + 97;
+        char col_char = col; //transform the column number into its ASCII equivalent so other functions recognize it
+        col = col - 97;
+    
+        for(int i=0; i<numShips; i++){
+            try{
+                enemyShips[i]->hit(col_char, row+1);
+            }catch(std::exception& e){
+
+        }
+    }
+    if(!enemyBoard->isValidSpace(col, row)) { //update the guessed board
+        guessBoard->updateBoard(col_char, row+1, '*');
+    }
+    else {
+        guessBoard->updateBoard(col_char, row+1, 'M');
+    }
+    }
 }
 
