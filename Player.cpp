@@ -8,9 +8,6 @@ Player::Player()
 void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board* guessBoard)
 {
     int shotSelection = 0;
-    int bombShotCount = 2;
-    int consecutiveShotCount = 2;
-    int randomShotCount = 2;
     std::string shotType;
 	char col = 'A';
     int newCol = 0;

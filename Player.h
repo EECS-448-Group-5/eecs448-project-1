@@ -24,6 +24,9 @@ class Player : public Opponent {
         //char guessDirection;
         //int guessDistance;
         int bombShotCount=2;
+        int consecutiveShotCount = 2;
+        int randomShotCount = 2;
+
 };
 
 #endif
