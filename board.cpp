@@ -145,11 +145,7 @@ void Board::placeShip(Ship* entry)
 
 bool Board::isValidSpace(int col, int row)
 {
-<<<<<<< HEAD
 	if((col >= 97 && col <=106) && (row >= 0 && row <=9) && (board[row][col] == '-'))	//Checks if coordinate currently has no ships
-=======
-	if((col >= 0 && col <= 9) && (row >= 0 && row <=9) && board[row][col] == '-')		//Checks if coordinate currently has no ships
->>>>>>> 67250ce47ab80fff8a4cb6fee1527962141bd60e
 	{
 		return(true);
 	}
