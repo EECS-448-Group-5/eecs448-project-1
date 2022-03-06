@@ -43,8 +43,14 @@ void Executive::play()
 	do
 	{
 		//asks player one for a move
+		std::cout<< "================================================\n"
+				 << "Player 1 Turn\n"
+				 << "================================================\n";
 		gameFunction.fire(player1, 1);
 		//then asks player two for a move
+		std::cout<< "================================================\n"
+				 << "Player 2 Turn\n"
+				 << "================================================\n";
 		gameFunction.fire(player2, 2);
 	} while (gameFunction.gameEndCheck() == false);   //checks if game is over and ends the loop if true
 

@@ -38,6 +38,8 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
     {//don't know where a ship is
         int* guess = getRandomGuess(guessBoard);
 
+        std::cout<<"Move: " << (char)guess[0] << guess[1];
+
         //if the random guess is a hit, make a note of where the hit was.
         if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
         {
@@ -95,6 +97,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
                 }
             }
 
+            std::cout<<"Move: " << (char)guess[0] << guess[1];
 
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
@@ -217,6 +220,7 @@ void MediumAI::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Boar
             }
 
 
+            std::cout<<"Move: " << (char)guess[0] << guess[1];
             if(makeGuess(guess[0], guess[1], enemyBoard, enemyShips, numShips, guessBoard))
             {
                 guessDistance++;
