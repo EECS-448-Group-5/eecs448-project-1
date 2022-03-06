@@ -33,6 +33,11 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+    if(shotType == "random" || shotType == "r"){
+        randomShot(enemyBoard, enemyShips, numShips, guessBoard);
+        return;
+    }
+
 	std::cout << "===============================================\n";
     std::cout << "Enter Coordinate to Attack\n(letters a-j for column and 0-9 for rows\n(example column: a and row: 2 = a2)):\n";
 	std::cout << "===============================================\n";
@@ -53,6 +58,27 @@ void Player::makeMove(Board* enemyBoard, Ship** enemyShips, int numShips, Board*
     	}
     }
 	while (result == false);  //only accept user input a-j
+
+    do
+    {
+		std::cin.clear();	//Prompts for input if user gives a non character
+		std::cin.ignore();
+    	std::cout << "Row: ";
+    	std::cin >> row;
+    	result = (row<=10 && row >=1); //checks for the converted ascii value to see if its 0=9 for a-j
+    	if(result == false)
+    	{
+      	    std::cout << "Invalid input. Please enter letters a-j.";
+    	}
+    }
+	while (result == false);  //only accept row input 1-10
+
+    if(shotType == "c" || shotType == "consecutive"){
+        consecutiveShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
+        return;
+    }else if(shotType == "b" || shotType == "bomb"){
+        bombShot(enemyBoard, enemyShips, numShips, guessBoard, row, col);
+    }
 
 /*
 
