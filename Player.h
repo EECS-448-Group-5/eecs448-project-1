@@ -23,6 +23,7 @@ class Player : public Opponent {
         //char shipDirection;
         //char guessDirection;
         //int guessDistance;
+        Board* homeBoard = nullptr;
         int bombShotCount=2;
         int consecutiveShotCount = 2;
         int randomShotCount = 2;
