@@ -43,8 +43,14 @@ void Executive::play()
 	do
 	{
 		//asks player one for a move
+		std::cout<< "================================================\n"
+				 << "Player 1 Turn\n"
+				 << "================================================\n";
 		gameFunction.fire(player1, 1);
 		//then asks player two for a move
+		std::cout<< "================================================\n"
+				 << "Player 2 Turn\n"
+				 << "================================================\n";
 		gameFunction.fire(player2, 2);
 	} while (gameFunction.gameEndCheck() == false);   //checks if game is over and ends the loop if true
 
@@ -112,15 +118,15 @@ Opponent* Executive::selectPlayer(std::string player)
 
     	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		if (playerType == "e")
+		if (playerType == "e" || playerType == "easy")
 		{
 			opponent = new EasyAI();
 		}
-		else if (playerType == "m")
+		else if (playerType == "m" || playerType == "medium")
 		{
 			opponent = new MediumAI();
 		}
-		else if (playerType == "h")
+		else if (playerType == "h" || playerType == "hard")
 		{
 			opponent = new HardAI();
 		}
