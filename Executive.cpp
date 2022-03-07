@@ -70,16 +70,20 @@ void Executive::play()
 	}
 }
 
+//Prompts user to select the type of player for Player 1 or Player 2 (specified by the player parameter
+//which should be "Player 1" or "Player 2") and returns a pointer to an object of a subclass of Opponent.
 Opponent* Executive::selectPlayer(std::string player)
 {
 	std::string playerType = "";
 	std::string difficulty = "";
 	Opponent* opponent = nullptr;
 	
+	//Obtains user input for player type and stores in playerType
 	std::cout << "\n";
 	std::cout << "Please specify who " << player << " is (human/computer): ";
 	std::cin >> playerType;
 
+	//Makes sure user input is valid.
 	while ( std::cin.fail() || ( playerType != "human" && playerType != "h" && playerType != "computer" && playerType != "c" ) )
 	{
 		std::cin.clear();
@@ -94,16 +98,19 @@ Opponent* Executive::selectPlayer(std::string player)
 
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+	//Creates an object of the appropriate subclass of Opponent based on user input.
 	if (playerType == "h")
 	{
 		opponent = new Player();
 	}
 	else if (playerType == "computer" || playerType == "c")
 	{
+		//Obtains user input for difficulty of AI player.
 		std::cout << "\n";
 		std::cout << "Please select the difficulty (easy/medium/hard): ";
 		std::cin >> playerType;
 
+		//Ensures user input is valid.
 		while ( std::cin.fail() || ( playerType != "easy" && playerType != "e" && playerType != "medium" && playerType != "m" && playerType != "hard" && playerType != "h" ) )
 		{
 			std::cin.clear();
@@ -118,6 +125,7 @@ Opponent* Executive::selectPlayer(std::string player)
 
     	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
+		//Creates an object of the appropriate subclass of Opponent.
 		if (playerType == "e" || playerType == "easy")
 		{
 			opponent = new EasyAI();
